@@ -15,7 +15,8 @@ def run_query(q):
     :return: The contribution data in JSON format
     """
     request = requests.post('https://api.github.com/graphql',
-                            json={'query': q.format(username=os.getenv("GIT_USER"))},
+                            json={'query': q.format(
+                                username=os.getenv("GIT_USER"))},
                             headers=headers)
     if request.status_code == 200:
         return request.json()
@@ -49,10 +50,11 @@ def find_last_contribution():
     :return: The date in string format
     """
     result = run_query(query)
-    contributions = \
+    weeks = \
         result["data"]["user"]["contributionsCollection"][
-            "contributionCalendar"]["weeks"][0]["contributionDays"]
+            "contributionCalendar"]["weeks"]
+    contributions = weeks[len(weeks) - 1]["contributionDays"]
 
-    for contribution in contributions:
+    for contribution in list(reversed(contributions)):
         if contribution["contributionCount"] > 0:
             return contribution["date"]

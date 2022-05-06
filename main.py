@@ -17,8 +17,7 @@ def main():
 # Function main is run every day at 12:00
 schedule.every().day.at("12:00").do(main)
 
-
 if __name__ == "__main__":
     while True:
         schedule.run_pending()
-        time.sleep(86_400)
+        time.sleep(3600)
