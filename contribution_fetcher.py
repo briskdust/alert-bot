@@ -53,7 +53,7 @@ def find_last_contribution():
     weeks = \
         result["data"]["user"]["contributionsCollection"][
             "contributionCalendar"]["weeks"]
-    contributions = weeks[len(weeks) - 1]["contributionDays"]
+    contributions = weeks[-1]["contributionDays"]
 
     for contribution in list(reversed(contributions)):
         if contribution["contributionCount"] > 0:
